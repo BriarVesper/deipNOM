@@ -1,12 +1,12 @@
 const storage = localStorage;
+const getRecipeList = () => { return JSON.parse(localStorage.getItem('recipes')) || []; };
 const recipeDelegate = {
-
   /**
    * @returns {Object} List of ToDo items
    */
   getAllRecipes: async () => {
     return new Promise((resolve, reject) => {
-      resolve(JSON.parse(localStorage.getItem('recipes')));
+      resolve(getRecipeList());
     });
   },
   /**
@@ -17,9 +17,10 @@ const recipeDelegate = {
    */
   submit: async (recipe, callback, errback) => {
     return new Promise((resolve, reject) => {
-      let recipes = this.getAllRecipes();
-      recipes = [...recipes, recipe];
-      resolve(storage.setItem(JSON.stringify(recipes)));
+      let recipes = getRecipeList();
+      recipes = [...recipes, recipe.recipe];
+      storage.setItem('recipes', JSON.stringify(recipes));
+      resolve(recipe.recipe);
     })
     .then(res => { callback && callback(res); })
     .catch(error => { errback && errback(error); });
@@ -32,13 +33,14 @@ const recipeDelegate = {
    */
   remove: async (id, callback, errback) => {
     return new Promise((resolve, reject) => {
-      let recipes = this.getAllRecipes();
+      let recipes = getRecipeList();
       let recipeToRemove = recipes.findIndex(recipe => recipe._id === id);
       if (recipeToRemove === -1)
         reject(new Error('ID not found'));
 
-      recipes.splice(recipeToRemove, 1);
-      resolve(storage.setItem('recipes', JSON.stringify(recipes)));
+      let removed = recipes.splice(recipeToRemove, 1);
+      storage.setItem('recipes', JSON.stringify(recipes));
+      resolve(removed[0]);
     })
     .then(res => { callback && callback(res); })
     .catch(error => { errback && errback(error); });
@@ -51,13 +53,14 @@ const recipeDelegate = {
    */
    edit: async (recipe, callback, errback) => {
     return new Promise((resolve, reject) => {
-      let recipes = this.getAllRecipes();
-      let recipeToEdit = recipes.findIndex(editRecipe => editRecipe._id === recipe._id);
+      let recipes = getRecipeList();
+      let recipeToEdit = recipes.findIndex(editRecipe => editRecipe._id === recipe.recipe._id);
       if (recipeToEdit === -1)
         reject(new Error('ID not found'));
 
-      recipes[recipeToEdit] = recipe;
-      resolve(storage.setItem('recipes', JSON.stringify(recipes)));
+      recipes[recipeToEdit] = recipe.recipe;
+      storage.setItem('recipes', JSON.stringify(recipes));
+      resolve(recipe.recipe);
     })
     .then(res => { callback && callback(res); })
     .catch(error => { errback && errback(error); });

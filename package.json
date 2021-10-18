@@ -1,5 +1,5 @@
 {
-  "name": "deipnon",
+  "name": "deipnom",
   "version": "0.1.0",
   "private": true,
   "homepage": "http://BriarVesper.github.io/deipNOM",
@@ -17,6 +17,7 @@
     "react-modal": "^3.14.3",
     "react-scripts": "4.0.3",
     "recipe-ingredient-parser-v3": "^1.2.9",
+    "uniqid": "^5.4.0",
     "web-vitals": "^1.1.2"
   },
   "scripts": {

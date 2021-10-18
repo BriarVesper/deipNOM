@@ -1,4 +1,6 @@
 import React, { useContext, useState } from 'react';
+import uniqid from 'uniqid';
+
 import AppContext from '../context';
 import SmallInput from './subcom/SmallInput';
 import BigInput from './subcom/BigInput';
@@ -12,7 +14,7 @@ const NewRecipe = () => {
 
   const handleAddRecipe = () => {
     let ingredients = JSON.stringify(parseIngredients(ing));
-    let recipe = { title, description, source, ingredients, instructions };
+    let recipe = { title, description, source, ingredients, instructions, "_id": uniqid() };
     dispatchRecipeEvent('ADD', { newRecipe: recipe, thumbnail: image });
   };
 

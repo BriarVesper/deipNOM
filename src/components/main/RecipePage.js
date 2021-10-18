@@ -8,7 +8,7 @@ import delegate from '../recipes/delegate';
 import '../../style/Recipe.css';
 
 function RecipePage() {
-  const [ recipes, setRecipes ] = useState([]);
+  const [recipes, setRecipes] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [recipeToEdit, setRecipeToEdit] = useState({});
   const handleSetIsOpen = () => setIsOpen(!isOpen);
@@ -17,7 +17,7 @@ function RecipePage() {
     async function fetchData() {
       let fetchRecipes = await delegate.getAllRecipes();
       let recipeList = fetchRecipes || [];
-      let parsedRecipeList = recipeList.map(recipe => ({ ...recipe, ingredients: JSON.parse(recipe.ingredients) }));
+      let parsedRecipeList = recipeList.map(recipe => ({ ...recipe, ingredients: JSON.parse(recipe.ingredients || "{}") }));
       setRecipes(parsedRecipeList);  
     }
     fetchData();
@@ -44,19 +44,13 @@ function RecipePage() {
 
   const handleNewRecipe = async (data) => {
     let newRecipe = data.newRecipe;
-    let thumbnail = data.thumbnail;
     if (!newRecipe.title || !newRecipe.title.trim()) return null;
-
-    if (thumbnail) {
-      let imageURL = await fetchImageURL(thumbnail);
-      newRecipe.image = imageURL;
-    }
 
     delegate.submit({
       recipe: newRecipe
     }, 
       (res) => {
-        let savedRecipe = res.data;
+        let savedRecipe = res;
         savedRecipe.ingredients = JSON.parse(savedRecipe.ingredients);
         setRecipes([ ...recipes, savedRecipe ]); 
         console.log(res);
@@ -65,15 +59,11 @@ function RecipePage() {
     );
   }
 
-  const fetchImageURL = async (file) => {
-    return delegate.uploadThumbnail(file);
-  }
-
   const handleDeleteRecipe = (data) => {
     delegate.remove(
       data.id, 
       (res) => { 
-        let removedRecipe = res.data;
+        let removedRecipe = res;
         setRecipes(recipes.filter(recipe => recipe._id !== removedRecipe._id));
        },
       (err) => { console.log(err); }
@@ -93,7 +83,7 @@ function RecipePage() {
       recipe: updatedRecipe
     }, 
       (res) => {
-        let updatedRecipe = res.data;
+        let updatedRecipe = res;
         updatedRecipe.ingredients = JSON.parse(updatedRecipe.ingredients);
         let updatedList = updateRecipeListAfterEdit(updatedRecipe);
         setRecipes(updatedList); 
