@@ -16,7 +16,7 @@ function RecipePage() {
   useEffect(() => {
     async function fetchData() {
       let fetchRecipes = await delegate.getAllRecipes();
-      let recipeList = fetchRecipes.data || [];
+      let recipeList = fetchRecipes || [];
       let parsedRecipeList = recipeList.map(recipe => ({ ...recipe, ingredients: JSON.parse(recipe.ingredients) }));
       setRecipes(parsedRecipeList);  
     }

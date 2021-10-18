@@ -17,7 +17,7 @@ const recipeDelegate = {
    */
   submit: async (recipe, callback, errback) => {
     return new Promise((resolve, reject) => {
-      let recipes = getAllRecipes();
+      let recipes = this.getAllRecipes();
       recipes = [...recipes, recipe];
       resolve(storage.setItem(JSON.stringify(recipes)));
     })
@@ -32,7 +32,7 @@ const recipeDelegate = {
    */
   remove: async (id, callback, errback) => {
     return new Promise((resolve, reject) => {
-      let recipes = getAllRecipes();
+      let recipes = this.getAllRecipes();
       let recipeToRemove = recipes.findIndex(recipe => recipe._id === id);
       if (recipeToRemove === -1)
         reject(new Error('ID not found'));
@@ -45,14 +45,14 @@ const recipeDelegate = {
   },
   /**
    * Updating of a Recipe item
-   * @param {String} recipe The id of the item to delete
+   * @param {Object} recipe The id of the item to delete
    * @param {function} callback Response handler
    * @param {function} errback Error handler
    */
    edit: async (recipe, callback, errback) => {
     return new Promise((resolve, reject) => {
-      let recipes = getAllRecipes();
-      let recipeToEdit = recipes.findIndex(recipe => recipe._id === id);
+      let recipes = this.getAllRecipes();
+      let recipeToEdit = recipes.findIndex(editRecipe => editRecipe._id === recipe._id);
       if (recipeToEdit === -1)
         reject(new Error('ID not found'));
 
