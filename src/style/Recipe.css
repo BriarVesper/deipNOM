@@ -1,0 +1,152 @@
+.common-button, .icon-button, .icon-button-small, #add-recipe .add-recipe-btm-container button {
+  padding: 15px 30px;
+  border: 0;
+  border-radius: 25px;
+  color: #ffffff;
+  background-color: #535353;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.25s ease-in, transform 50ms; }
+  .common-button:hover, .icon-button:hover, .icon-button-small:hover, #add-recipe .add-recipe-btm-container button:hover {
+    color: #ffffff;
+    background-color: #c277ff;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 5px 10px rgba(0, 0, 0, 0.22); }
+  .common-button:active, .icon-button:active, .icon-button-small:active, #add-recipe .add-recipe-btm-container button:active {
+    transform: translateY(2px); }
+
+.icon-button {
+  height: 35px;
+  width: 35px;
+  padding: 0;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.icon-button-small {
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  min-width: 35px;
+  min-height: 35px;
+  font-size: 20px; }
+  .icon-button-small:hover {
+    color: #c277ff;
+    background-color: transparent;
+    box-shadow: none; }
+  .icon-button-small svg {
+    stroke: black;
+    stroke-width: 10px; }
+
+.text-button-small {
+  border: 0;
+  border-radius: 25px;
+  color: #c0c0c0;
+  background-color: transparent;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.25s ease-in, transform 50ms; }
+  .text-button-small:hover {
+    color: #c277ff;
+    box-shadow: 3px 9px 11px -6px #000000; }
+  .text-button-small:active {
+    transform: translateY(2px); }
+
+.panel, #recipe-page {
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  overflow-y: auto;
+  opacity: 0.9;
+  text-align: left;
+  margin: 0 auto;
+  width: 450px;
+  background-color: white; }
+
+#add-recipe .add-recipe-top-container {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 15px; }
+#add-recipe .add-recipe-btm-container button {
+  margin-top: 10px; }
+  #add-recipe .add-recipe-btm-container button.cancel-button {
+    float: right; }
+    #add-recipe .add-recipe-btm-container button.cancel-button:hover {
+      background-color: #60097a; }
+#add-recipe .add-recipe-thumbnail {
+  width: 95px;
+  height: 95px;
+  font-size: 30px;
+  background-color: #c0c0c0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.25s ease-in;
+  background-size: cover;
+  color: white; }
+  #add-recipe .add-recipe-thumbnail:hover {
+    color: #60097a;
+    background-color: #c277ff; }
+#add-recipe .add-recipe-input {
+  width: 100%;
+  padding: 7px 0 4px 0;
+  border: 0;
+  outline: 0;
+  font-size: 16px;
+  color: black;
+  background: transparent; }
+  #add-recipe .add-recipe-input.small-input {
+    width: 300px;
+    border-bottom: 2px solid #c277ff;
+    display: inline-block; }
+  #add-recipe .add-recipe-input.big-input {
+    width: 100%;
+    resize: none;
+    border: 1px solid #c277ff;
+    padding: 10px; }
+
+#recipe-list .list {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  max-height: 200px;
+  overflow: auto; }
+  #recipe-list .list::-webkit-scrollbar {
+    border-radius: 10px;
+    height: 10px;
+    width: 8px; }
+  #recipe-list .list::-webkit-scrollbar-thumb {
+    background: #999;
+    border-radius: 10px; }
+  #recipe-list .list::-webkit-scrollbar-track {
+    border-radius: 10px; }
+  #recipe-list .list .recipe-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1 0 35%;
+    margin: 4px;
+    padding: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    background-color: #c0c0c0;
+    color: white;
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.75); }
+    #recipe-list .list .recipe-item .header {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.5); }
+      #recipe-list .list .recipe-item .header .title {
+        font-size: 18px;
+        margin-bottom: 10px;
+        margin-right: 20px; }
+    #recipe-list .list .recipe-item .middle {
+      margin-top: 10px;
+      margin-bottom: 5px; }
+    #recipe-list .list .recipe-item .footer {
+      padding-top: 8px;
+      border-top: 1px solid rgba(255, 255, 255, 0.5);
+      display: flex;
+      justify-content: space-between; }
+
+/*# sourceMappingURL=Recipe.css.map */
