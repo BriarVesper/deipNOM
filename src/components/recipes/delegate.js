@@ -1,65 +1,47 @@
-import axios from 'axios';
-
+const storage = localStorage;
 const recipeDelegate = {
 
   /**
    * @returns {Object} List of ToDo items
    */
-  getAllRecipes: () => {
-    return axios.get('http://localhost:8081/recipes', {
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      }
+  getAllRecipes: async () => {
+    return new Promise((resolve, reject) => {
+      resolve(JSON.parse(localStorage.getItem('recipes')));
     });
   },
-
   /**
    * Creation of new recipe item
    * @param {Object} recipe Object consisting of all recipe information to save
    * @param {function} callback Response handler
    * @param {function} errback Error handler
    */
-  submit: (recipe, callback, errback) => {
-    axios.post('http://localhost:8081/recipes/create', recipe)
-      .then((res) => {
-        callback && callback(res);
-      }).catch((error) => {
-        errback && errback(error);
-      });
+  submit: async (recipe, callback, errback) => {
+    return new Promise((resolve, reject) => {
+      let recipes = getAllRecipes();
+      recipes = [...recipes, recipe];
+      resolve(storage.setItem(JSON.stringify(recipes)));
+    })
+    .then(res => { callback && callback(res); })
+    .catch(error => { errback && errback(error); });
   },
-  /**
-   * Upload thumbnail to Cloudinary to get the URL
-   * @param {File} file The image uploaded by the user
-   */
-     uploadThumbnail: async (file) => {
-      let fd = new FormData();
-      fd.append("file", file);
-      fd.append("upload_preset", "deipnon");
-      fd.append("cloud_name", "au-octavii");
-      return fetch("https://api.cloudinary.com/v1_1/au-octavii/upload", {
-        method: "post",
-        body: fd
-      })
-      .then(res => res.json())
-      .then(data => {
-        return data.url;
-      })
-      .catch(err => console.log());
-    },
   /**
    * Deletion of Recipe item
    * @param {String} id The id of the item to delete
    * @param {function} callback Response handler
    * @param {function} errback Error handler
    */
-  remove: (id, callback, errback) => {
-    axios.delete('http://localhost:8081/recipes/' + id)
-      .then((res) => {
-        callback && callback(res);
-      }).catch((error) => {
-        errback && errback(error);
-      });
+  remove: async (id, callback, errback) => {
+    return new Promise((resolve, reject) => {
+      let recipes = getAllRecipes();
+      let recipeToRemove = recipes.findIndex(recipe => recipe._id === id);
+      if (recipeToRemove === -1)
+        reject(new Error('ID not found'));
+
+      recipes.splice(recipeToRemove, 1);
+      resolve(storage.setItem('recipes', JSON.stringify(recipes)));
+    })
+    .then(res => { callback && callback(res); })
+    .catch(error => { errback && errback(error); });
   },
   /**
    * Updating of a Recipe item
@@ -67,13 +49,18 @@ const recipeDelegate = {
    * @param {function} callback Response handler
    * @param {function} errback Error handler
    */
-   edit: (recipe, callback, errback) => {
-    axios.post('http://localhost:8081/recipes/edit', recipe)
-      .then((res) => {
-        callback && callback(res);
-      }).catch((error) => {
-        errback && errback(error);
-      });
+   edit: async (recipe, callback, errback) => {
+    return new Promise((resolve, reject) => {
+      let recipes = getAllRecipes();
+      let recipeToEdit = recipes.findIndex(recipe => recipe._id === id);
+      if (recipeToEdit === -1)
+        reject(new Error('ID not found'));
+
+      recipes[recipeToEdit] = recipe;
+      resolve(storage.setItem('recipes', JSON.stringify(recipes)));
+    })
+    .then(res => { callback && callback(res); })
+    .catch(error => { errback && errback(error); });
   },
 };
 
