@@ -33,7 +33,7 @@ function MainView() {
     <div className="main-container">
       <FadeIn transitionDuration={1000}>
         <div id="main-heading">
-          deipnon
+          deipNOM
         </div>
         {selectedPage === 1 && 
           <PageContext.Provider value={{ selectedRecipes, handleRemoveSelectedRecipe }}>
