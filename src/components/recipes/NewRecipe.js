@@ -1,21 +1,19 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import uniqid from 'uniqid';
 
 import AppContext from '../context';
 import SmallInput from './subcom/SmallInput';
 import BigInput from './subcom/BigInput';
-import ImageUpload from './subcom/ImageUpload';
 
 import { parse } from 'recipe-ingredient-parser-v3';
 
 const NewRecipe = () => {
-  const [image, setImage] = useState("");
   const { dispatchRecipeEvent } = useContext(AppContext);
 
-  const handleAddRecipe = () => {
+  const handleAddRecipe = async () => {
     let ingredients = JSON.stringify(parseIngredients(ing));
     let recipe = { title, description, source, ingredients, instructions, "_id": uniqid() };
-    dispatchRecipeEvent('ADD', { newRecipe: recipe, thumbnail: image });
+    dispatchRecipeEvent('ADD', { newRecipe: recipe });
   };
 
   const parseIngredients = (ing) => {
@@ -25,10 +23,6 @@ const NewRecipe = () => {
     let parsedIngredients = ingArr.map(item => parse(item, 'eng'));
     return parsedIngredients;
   };
-
-  const handleAddThumbnail = (img) => {
-    setImage(img);
-  }
 
   const [title, titleInput] = SmallInput({ placeholder: "title" });
   const [description, descriptionInput] = SmallInput({ placeholder: "description" });
@@ -40,7 +34,6 @@ const NewRecipe = () => {
     <div id="add-recipe">
       <h3 className="add-recipe-header">Add New Recipe</h3>
       <div className="add-recipe-top-container">
-        <ImageUpload handleAddThumbnail={handleAddThumbnail} image={image}/>
         <div className="small-inputs">
           {titleInput}
           {descriptionInput}

@@ -20,14 +20,7 @@ const Recipe = ({ recipe }) => {
   }
 
   return (
-    <div className="recipe-item"
-      style={{
-        backgroundImage: "url(" + recipe.image + ")",
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat'        
-      }}
-    >
+    <div className="recipe-item">
       <div className="header">
         <div className="title">{recipe.title}</div>
         <button className="select icon-button-small" onClick={handlePickRecipe}><FaPlus/></button>
