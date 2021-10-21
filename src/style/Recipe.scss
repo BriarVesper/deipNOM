@@ -6,8 +6,6 @@
 
 #add-recipe {
   .add-recipe-top-container {
-    display: flex;
-    justify-content: space-evenly;
     margin-bottom: 15px;
   }
 
@@ -53,7 +51,6 @@
       background: transparent;
 
     &.small-input {
-      width: 300px;
       border-bottom: 2px solid map-get($colors, active);
       display: inline-block;
     }
@@ -86,8 +83,8 @@
       margin: 4px;
       padding: 8px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-      background-color: map-get($colors, default-light);
-
+      
+      background-color: map-get($colors, active-light);
       color: white;
       text-shadow: 2px 2px 3px rgba(0,0,0,0.75);
 
