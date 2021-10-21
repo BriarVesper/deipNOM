@@ -5,7 +5,6 @@ import SmallInput from './subcom/SmallInput';
 import BigInput from './subcom/BigInput';
 import AppContext from '../context';
 
-import { FaPlusCircle } from 'react-icons/fa';
 import { parse } from 'recipe-ingredient-parser-v3';
 
 import '../../style/Recipe.css';
@@ -25,13 +24,11 @@ const customStyles = {
 Modal.setAppElement('#root');
 function EditRecipeModal({ isOpen: parentIsOpen = false, handleSetIsOpen, recipeToEdit }) {
   const { dispatchRecipeEvent } = useContext(AppContext);
-  let thumbnail;
   const [modalIsOpen, setIsOpen] = useState(parentIsOpen);
   useEffect(() => { setIsOpen(parentIsOpen); }, [parentIsOpen]);
 
   function afterOpenModal() {
     console.log(recipeToEdit);
-    thumbnail.style.color = '#cb9eff';
   }
 
   function closeModal() {
@@ -64,10 +61,6 @@ function EditRecipeModal({ isOpen: parentIsOpen = false, handleSetIsOpen, recipe
     return parsedIngredients;
   };
 
-  const handleAddThumbnail = (e) => {
-    console.log("TODO");
-  }
-
   const [title, titleInput] = SmallInput({ placeholder: recipeToEdit.title || "title" });
   const [description, descriptionInput] = SmallInput({ placeholder: recipeToEdit.description || "description" });
   const [source, sourceInput] = SmallInput({ placeholder: recipeToEdit.source || "source" });
@@ -86,7 +79,6 @@ function EditRecipeModal({ isOpen: parentIsOpen = false, handleSetIsOpen, recipe
         <div id="add-recipe">
           <h3 className="add-recipe-header">Editing {recipeToEdit.title}</h3>
           <div className="add-recipe-top-container">
-            <div className="add-recipe-thumbnail" ref={(_thumbnail) => (thumbnail = _thumbnail)} onClick={handleAddThumbnail}><FaPlusCircle/></div>
             <div className="small-inputs">
               {titleInput}
               {descriptionInput}
