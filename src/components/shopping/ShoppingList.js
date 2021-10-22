@@ -28,7 +28,10 @@ const ShoppingList = () => {
   }, [selectedRecipes]);
 
   const prettifyIngredient = (ingObj) => {
-    var prettyString;
+    if (Object.keys(ingObj).length === 0) return;
+    if (!ingObj.ingredient) return;
+    let prettyString;
+    
     if (ingObj.unit) {
       // 1 cup of flour
       prettyString = ingObj.maxQty === 1 ? 
@@ -47,7 +50,7 @@ const ShoppingList = () => {
       <hr/>
       <div className="list">
         <ul>
-          {ingredientList.map((ingredient, index) => <li key={index}>{ingredient}</li>)}
+          {ingredientList.map((ingredient, index) => ingredient && <li key={index}>{ingredient}</li>)}
         </ul>
       </div>
     </div>
